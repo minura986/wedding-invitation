@@ -118,6 +118,26 @@
       width: 100%;
     }
 
+    .nav-links a.nav-rsvp {
+      background: var(--plum);
+      color: var(--white) !important;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(92, 61, 122, 0.15);
+    }
+
+    .nav-links a.nav-rsvp:hover {
+      background: var(--plum-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 15px rgba(92, 61, 122, 0.25);
+    }
+
+    .nav-links a.nav-rsvp::after {
+      display: none;
+    }
+
     @media (max-width: 600px) {
       .nav-links {
         gap: 12px;
@@ -1475,7 +1495,7 @@
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#details">Details</a></li>
         <li><a href="#location">Location</a></li>
-        <li><a href="#rsvp">RSVP</a></li>
+        <li><a href="#rsvp" class="nav-rsvp">RSVP</a></li>
       </ul>
     </div>
   </nav>
