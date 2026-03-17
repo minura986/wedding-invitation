@@ -1055,16 +1055,28 @@
     }
 
     /* Specific Colors for Yes/No */
+    #btnYes {
+      border-color: rgba(39, 174, 96, 0.4);
+      color: #27ae60;
+    }
+
+    #btnNo {
+      border-color: rgba(192, 57, 43, 0.4);
+      color: #c0392b;
+    }
+
     #btnYes.selected {
       background: #27ae60;
       border-color: #27ae60;
       color: white;
+      box-shadow: 0 4px 15px rgba(39, 174, 96, 0.25);
     }
 
     #btnNo.selected {
       background: #c0392b;
       border-color: #c0392b;
       color: white;
+      box-shadow: 0 4px 15px rgba(192, 57, 43, 0.25);
     }
 
     .attend-btn:hover:not(.selected) {
