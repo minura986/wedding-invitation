@@ -22,6 +22,7 @@ export default defineConfig({
             input: {
                 main: path.resolve(__dirname, 'index.html'),
                 invitation: path.resolve(__dirname, 'invitation.html'),
+                muslim: path.resolve(__dirname, 'invitation-muslim.html'),
             },
         },
         target: 'es2015',
