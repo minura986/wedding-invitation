@@ -263,7 +263,7 @@
     function updateGeneratedLink() {
       const guest = selectedGuest;
       const type = invitationTypeSelect.value;
-      const templatePath = window.location.origin + '/' + type;
+      const templatePath = window.location.origin + '/' + encodeURI(type);
       
       selectedGuestNameEl.textContent = guest.displayName;
       
