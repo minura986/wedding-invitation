@@ -1817,6 +1817,12 @@
         try {
           const decodedName = atob(guestParam); // Decode Base64
           guestNameDisplay.innerHTML = `<span class="guest-name-text">${decodedName}</span>`;
+          
+          // Pre-fill RSVP name field
+          const rsvpNameInput = document.getElementById('rsvp-name');
+          if (rsvpNameInput) {
+            rsvpNameInput.value = decodedName;
+          }
 
           // Pre-fill the RSVP form
           const firstNameInput = document.getElementById('firstName');
@@ -1955,7 +1961,8 @@
 
       try {
         // Send RSVP via Google Apps Script (no-cors mode to bypass CORS errors on static sites)
-        await fetch('https://script.google.com/macros/s/AKfycbye-YcSv9aHmeFp0r_9puklBOJhDNKbyGg3QQVnKepNOt78u2W9IsFsjK0VXNWQT6J-wQ/exec', {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyyCidvpFs4zTrbYBi05H2P3TOlSm_6aMAkbBrezkUVUzQcdRfU38rdqDtIyzoF3qkVvQ/exec';
+        await fetch(scriptURL, {
           method: 'POST',
           mode: 'no-cors',
           headers: {

@@ -111,7 +111,7 @@
     let guestsData = [];
     const INVITATION_URL = window.location.origin + '/invitation.html';
 
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxv2Ka6EJVwFn8WFc-WkK_nboqkmpCuU1rqXT8Cn-A6wHD9S7cu66cm0JkE8FT-gWzvTA/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyCidvpFs4zTrbYBi05H2P3TOlSm_6aMAkbBrezkUVUzQcdRfU38rdqDtIyzoF3qkVvQ/exec';
 
     // UI Elements
     const btnFetch = document.getElementById('btn-fetch');
@@ -201,9 +201,9 @@
         const li = document.createElement('li');
         li.className = 'px-4 py-3 hover:bg-purple-50 cursor-pointer transition flex items-center justify-between group';
         
-        const rsvpStatus = (guest["RSVP Status"] || '').trim();
-        const statusClass = rsvpStatus.toLowerCase() === 'attending' || rsvpStatus.toLowerCase() === 'yes' ? 'bg-green-100 text-green-700 border-green-200' : 
-                            rsvpStatus.toLowerCase() === 'declined' || rsvpStatus.toLowerCase() === 'no' ? 'bg-red-100 text-red-700 border-red-200' : 
+        const attendStatus = (guest["Attendance Status"] || '').trim();
+        const statusClass = attendStatus.toLowerCase() === 'attending' || attendStatus.toLowerCase() === 'yes' ? 'bg-green-100 text-green-700 border-green-200' : 
+                            attendStatus.toLowerCase() === 'declined' || attendStatus.toLowerCase() === 'no' ? 'bg-red-100 text-red-700 border-red-200' : 
                             'bg-gray-100 text-gray-600 border-gray-200';
 
         li.innerHTML = `
@@ -211,7 +211,7 @@
             <span class="font-medium text-gray-800">${guest.displayName || '<Empty Name>'}</span>
             <div class="flex items-center gap-2 mt-0.5">
               <span class="text-xs text-gray-400">${guest["Relationship"] || ''}</span>
-              ${rsvpStatus ? `<span class="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass}">${rsvpStatus}</span>` : ''}
+              ${attendStatus ? `<span class="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass}">${attendStatus}</span>` : ''}
             </div>
           </div>
           <span class="text-purple-500 opacity-0 group-hover:opacity-100 transition text-xs border border-purple-200 px-2 py-1 rounded-full bg-purple-100">Select</span>
