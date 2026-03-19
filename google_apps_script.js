@@ -46,7 +46,8 @@ function doPost(e) {
   const headers = data[headerRowIndex].map(h => h.toString().trim());
   const statusIdx = headers.indexOf("Attendance Status");
   const timestampIdx = headers.indexOf("Timestamps");
-  const titleIdx = headers.indexOf("Title2");
+  const title1Idx = headers.indexOf("Title1");
+  const title2Idx = headers.indexOf("Title2");
   const firstNameIdx = headers.indexOf("First Name");
   const lastNameIdx = headers.indexOf("Last Name");
   const spouseKidsIdx = headers.indexOf("Spouse/Kids");
@@ -59,7 +60,8 @@ function doPost(e) {
   
   let matchFound = false;
   for (let i = headerRowIndex + 1; i < data.length; i++) {
-    const title = titleIdx !== -1 ? (data[i][titleIdx] || "").toString().trim() : "";
+    const title1 = title1Idx !== -1 ? (data[i][title1Idx] || "").toString().trim() : "";
+    const title2 = title2Idx !== -1 ? (data[i][title2Idx] || "").toString().trim() : "";
     const firstName = firstNameIdx !== -1 ? (data[i][firstNameIdx] || "").toString().trim() : "";
     const lastName = lastNameIdx !== -1 ? (data[i][lastNameIdx] || "").toString().trim() : "";
     const spouseKids = spouseKidsIdx !== -1 ? (data[i][spouseKidsIdx] || "").toString().trim() : "";
@@ -67,7 +69,8 @@ function doPost(e) {
     
     // Construct exact displayName to match what is sent from index.html / invitation URL
     const parts = [];
-    if (title) parts.push(title);
+    if (title1) parts.push(title1);
+    if (title2) parts.push(title2);
     if (firstName) parts.push(firstName);
     if (lastName) parts.push(lastName);
     if (spouseKids) parts.push(spouseKids);

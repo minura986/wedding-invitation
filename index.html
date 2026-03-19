@@ -162,6 +162,7 @@
         
         // Helper to format full name mapping all potential keys from Google Sheet
         guestsData = data.filter(g => g["First Name"] || g.name).map(g => {
+          const title1 = (g["Title1"] || "").trim();
           const title2 = (g["Title2"] || "").trim();
           const firstName = (g["First Name"] || g.name || "").trim();
           const lastName = (g["Last Name"] || "").trim();
@@ -170,6 +171,7 @@
 
           // Build enriched display name
           let displayName = "";
+          if (title1) displayName += title1 + " ";
           if (title2) displayName += title2 + " ";
           if (firstName) displayName += firstName;
           if (spouseKids) displayName += " & " + spouseKids;
@@ -181,7 +183,7 @@
           return {
             ...g,
             displayName: displayName.trim(),
-            searchStr: `${title2} ${firstName} ${lastName} ${spouseKids} ${family}`.toLowerCase()
+            searchStr: `${title1} ${title2} ${firstName} ${lastName} ${spouseKids} ${family}`.toLowerCase()
           };
         });
         
