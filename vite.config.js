@@ -21,8 +21,10 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 main: path.resolve(__dirname, 'index.html'),
-                invitation: path.resolve(__dirname, 'invitation.html'),
-                muslim: path.resolve(__dirname, 'invitation-1.html'),
+                invitation: path.resolve(__dirname, 'wedding/invitation.html'),
+                muslim: path.resolve(__dirname, 'wedding/invitation-1.html'),
+                homeComing: path.resolve(__dirname, 'Home Coming/HomeCinvitation.html'),
+                homeComingMuslim: path.resolve(__dirname, 'Home Coming/HomeCinvitation-1.html'),
             },
         },
         target: 'es2015',
