@@ -111,7 +111,7 @@
     let guestsData = [];
     const INVITATION_URL = window.location.origin + '/invitation.html';
 
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbye-YcSv9aHmeFp0r_9puklBOJhDNKbyGg3QQVnKepNOt78u2W9IsFsjK0VXNWQT6J-wQ/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxv2Ka6EJVwFn8WFc-WkK_nboqkmpCuU1rqXT8Cn-A6wHD9S7cu66cm0JkE8FT-gWzvTA/exec';
 
     // UI Elements
     const btnFetch = document.getElementById('btn-fetch');
@@ -148,8 +148,30 @@
         
         const data = await response.json();
         
-        // Remove empty records and duplicates (if desired)
-        guestsData = data.filter(g => g.name && g.name.length > 0);
+        // Helper to format full name mapping all potential keys from Google Sheet
+        guestsData = data.filter(g => g["First Name"] || g.name).map(g => {
+          const title2 = (g["Title2"] || "").trim();
+          const firstName = (g["First Name"] || g.name || "").trim();
+          const lastName = (g["Last Name"] || "").trim();
+          const spouseKids = (g["Spouse/Kids"] || "").trim();
+          const family = (g["Family"] || "").trim();
+
+          // Build enriched display name
+          let displayName = "";
+          if (title2) displayName += title2 + " ";
+          if (firstName) displayName += firstName;
+          if (spouseKids) displayName += " & " + spouseKids;
+          if (lastName) displayName += " " + lastName;
+          if (family) {
+              displayName += family.toLowerCase().includes("family") ? " with Family" : " " + family;
+          }
+          
+          return {
+            ...g,
+            displayName: displayName.trim(),
+            searchStr: `${title2} ${firstName} ${lastName} ${spouseKids} ${family}`.toLowerCase()
+          };
+        });
         
         btnFetch.innerHTML = `<span class="font-semibold text-green-600">Successfully loaded ${guestsData.length} guests!</span>`;
         renderGuestList(guestsData);
@@ -180,8 +202,8 @@
         li.className = 'px-4 py-3 hover:bg-purple-50 cursor-pointer transition flex items-center justify-between group';
         li.innerHTML = `
           <div>
-            <span class="font-medium text-gray-800">${guest.name}</span>
-            <span class="text-xs text-gray-400 ml-2">ID: ${guest.id || 'N/A'}</span>
+            <span class="font-medium text-gray-800">${guest.displayName || '<Empty Name>'}</span>
+            <span class="text-xs text-gray-400 block">${guest["Relationship"] || ''}</span>
           </div>
           <span class="text-purple-500 opacity-0 group-hover:opacity-100 transition text-xs border border-purple-200 px-2 py-1 rounded-full bg-purple-100">Select</span>
         `;
@@ -200,7 +222,7 @@
 
     guestSearch.addEventListener('input', (e) => {
       const term = e.target.value.toLowerCase();
-      const filtered = guestsData.filter(guest => guest.name.toLowerCase().includes(term) || String(guest.id).toLowerCase().includes(term));
+      const filtered = guestsData.filter(guest => guest.searchStr.includes(term));
       renderGuestList(filtered);
     });
 
@@ -218,9 +240,9 @@
       const type = invitationTypeSelect.value;
       const templatePath = window.location.origin + '/' + type;
       
-      selectedGuestNameEl.textContent = guest.name;
+      selectedGuestNameEl.textContent = guest.displayName;
       
-      const encodedName = encodeGuestName(guest.name);
+      const encodedName = encodeGuestName(guest.displayName);
       
       // Determine base path. If we are running in localhost dev mode, use current origin
       // Note: adjust INVITATION_URL if your deployed version paths differ

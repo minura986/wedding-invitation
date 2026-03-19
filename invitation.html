@@ -432,12 +432,14 @@
 
     .guest-name-text {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: clamp(18px, 4vw, 28px);
       font-weight: 500;
       color: var(--plum);
       letter-spacing: 1px;
-      border-bottom: 1px solid var(--border);
-      padding: 0 20px 5px;
+      padding: 0 10px 5px;
+      line-height: 1.4;
+      display: inline-block;
+      max-width: 90vw;
     }
 
     .grace-text {
@@ -1541,8 +1543,8 @@
 
       <p class="hero-host">Mr. &amp; Mrs. Tuan Zarook A Samsudeen</p>
       <p class="hero-solicits">have the honour to solicit the kind presence of</p>
-      <div id="guestNameDisplay" class="guest-name-display">
-        <div class="dotted-line"></div>
+      <div id="guestNameDisplay" class="guest-name-display" style="flex-direction: column;">
+        <!-- Guest name will be injected here -->
       </div>
       <p class="grace-text">to grace the auspicious occasion of the</p>
       <p class="wedding-script">Wedding</p>
